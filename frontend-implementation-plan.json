@@ -1,0 +1,100 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Settings App with Functional Settings, Local MP4 Wallpaper Upload with Sound, and Persistent App CRUD",
+  "requirements": [
+    {
+      "id": "REQ-15",
+      "summary": "Create a dedicated Settings app icon on the desktop that opens the Settings panel as a windowed application with neon styling",
+      "acceptanceCriteria": [
+        "A 'Settings' app icon appears on the desktop grid alongside other apps",
+        "Clicking the Settings icon opens the settings UI inside a draggable/resizable neon window",
+        "The window has a title bar reading 'Settings' with minimize, maximize, and close buttons",
+        "All existing settings (accent color, wallpaper, font size, blur, clock format, taskbar height, icon size, particle intensity, scanlines, grid overlay, glow intensity, desktop label) are present and functional inside the window",
+        "Settings changes are applied immediately and persisted to the Motoko backend"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/Desktop.tsx",
+          "operation": "modify",
+          "description": "Add a built-in Settings app to the apps array with id 'settings', name 'Settings', and url 'internal://settings'. Update the openApp handler to recognize the 'settings' app and set settingsOpen to true instead of adding it to openWindows. Remove the standalone settings button from the UI since settings will now be accessed via the desktop icon."
+        },
+        {
+          "path": "frontend/src/components/SettingsPanel.tsx",
+          "operation": "modify",
+          "description": "Refactor SettingsPanel to accept isOpen and onClose props instead of managing its own overlay visibility. Remove the overlay background and close button, as the panel will now be rendered inside a Window component. Keep all existing settings sections (Appearance, Wallpaper, Desktop, Taskbar, Effects, Clock) fully functional with their current persistence logic."
+        },
+        {
+          "path": "frontend/src/components/Taskbar.tsx",
+          "operation": "modify",
+          "description": "Remove the standalone settings button since settings will now be launched via the desktop icon. Keep the add-app button and all other taskbar functionality intact."
+        }
+      ]
+    },
+    {
+      "id": "REQ-16",
+      "summary": "Add local device MP4 file upload support for wallpaper with audio playback using the blob-storage component",
+      "acceptanceCriteria": [
+        "Settings wallpaper section shows a 'Upload MP4' file input button accepting .mp4 files",
+        "Selecting a local MP4 file triggers upload to the Motoko backend via a new uploadWallpaperVideo endpoint",
+        "The backend stores the MP4 binary data (as [Nat8]) and exposes a getWallpaperVideo query",
+        "After upload, the desktop Wallpaper component fetches and renders the video as a full-screen <video> element with autoplay, loop, muted=false, and playsInline",
+        "Audio plays automatically when the video wallpaper loads",
+        "The video covers the full viewport with object-fit: cover and no quality-degrading CSS transforms",
+        "Existing URL-based wallpaper input remains available alongside the file upload option",
+        "The upload is PIN-protected (PIN: 2011) consistent with existing wallpaper change protection"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/hooks/useQueries.ts",
+          "operation": "modify",
+          "description": "Add a useUploadWallpaperVideo mutation hook that uses the blob-storage component to upload MP4 files. Use ExternalBlob.fromBytes() to wrap the file data and include upload progress tracking via withUploadProgress. The hook should call a new backend method to store the ExternalBlob reference, then invalidate the settings query cache on success. Verify the blob-storage component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/SettingsPanel.tsx",
+          "operation": "modify",
+          "description": "Add an MP4 file upload input in the Wallpaper section with accept='.mp4,video/mp4'. When a file is selected, validate it is an MP4, prompt for PIN (2011), then call useUploadWallpaperVideo with the file Blob. Show upload progress using a neon-styled progress indicator. Display success/error toast notifications. Keep the existing URL input field visible alongside the file upload button. Use the blob-storage component to handle the upload. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/Wallpaper.tsx",
+          "operation": "modify",
+          "description": "Extend the video rendering logic to support blob-storage ExternalBlob URLs. When the wallpaperUrl indicates a stored video blob, use ExternalBlob.getDirectURL() to obtain the streaming URL and render it in the <video> element with muted={false} to enable audio playback by default. Ensure autoplay, loop, and playsInline attributes are set. Keep object-fit: cover and remove any CSS transforms that degrade quality. Verify the blob-storage component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-17",
+      "summary": "Fix app persistence by ensuring backend mutations complete before updating UI state and invalidating query cache",
+      "acceptanceCriteria": [
+        "Adding an app via the AddApp dialog persists it to the backend and the icon appears on the desktop immediately after the backend confirms success",
+        "Removing an app persists the deletion to the backend and the icon disappears from the desktop immediately after the backend confirms",
+        "If the backend call fails, a neon-styled error toast notification is shown and the UI state is not updated",
+        "The app list is re-fetched from the backend after every successful add or remove (React Query cache invalidated)",
+        "Refreshing the page shows the same apps that were added/removed — no stale state",
+        "All visitors see the same up-to-date app list"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/hooks/useQueries.ts",
+          "operation": "modify",
+          "description": "Update useAddApp mutation to await the backend addApp call, then invalidate the 'apps' query key on success to force a refetch. Add error handling that throws or returns the error so the UI can display toast notifications. Ensure no optimistic updates occur before backend confirmation."
+        },
+        {
+          "path": "frontend/src/components/AddAppDialog.tsx",
+          "operation": "modify",
+          "description": "Wrap the addApp mutation call in try/catch. On success, show a success toast and close the dialog only after the mutation completes. On error, show a neon-styled error toast with the error message and keep the dialog open. Do not close the dialog or clear the form until the backend confirms success."
+        },
+        {
+          "path": "frontend/src/components/Desktop.tsx",
+          "operation": "modify",
+          "description": "Remove any local state management for the apps list that might override backend data. Ensure apps are always derived from the useGetApps query result. When removing an app, call the backend removeApp mutation and await its completion before updating any UI state. On error, display a neon-styled error toast. Invalidate the 'apps' query cache after successful removal to trigger a refetch."
+        },
+        {
+          "path": "frontend/src/components/AppIcon.tsx",
+          "operation": "modify",
+          "description": "Ensure the remove app action (if triggered from AppIcon) properly awaits backend confirmation and shows error toasts on failure. If app removal is handled entirely in Desktop, ensure AppIcon's UI state reflects the query-derived apps list without local overrides."
+        }
+      ]
+    }
+  ]
+}

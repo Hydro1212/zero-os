@@ -1,0 +1,69 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-create-a-dedicated-settings-app-icon-on-the-desktop-that-when-clicked-opens-the-settings-panel-as-a-proper-windowed-application-draggable-resizable-with-neon-title-bar-and-minimize-maximize-close-controls-rather-than-as-a-separate-overlay-the-settings-window-must-show-all-existing-settings-in-a-well-organized-functional-layout-with-clearly-labeled-sections-appearance-wallpaper-desktop-taskbar-effects-clock",
+      "featureTitle": "Create a dedicated 'Settings' app icon on the desktop that, when clicked, opens the Settings panel as a proper windowed application (draggable, resizable, with neon title bar and minimize/maximize/close controls), rather than as a separate overlay. The settings window must show all existing settings in a well-organized, functional layout with clearly labeled sections (Appearance, Wallpaper, Desktop, Taskbar, Effects, Clock).",
+      "files": [
+        "frontend/src/components/Desktop.tsx",
+        "frontend/src/components/SettingsPanel.tsx",
+        "frontend/src/components/Taskbar.tsx"
+      ],
+      "components": [
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-15"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-local-device-mp4-file-upload-support-for-the-wallpaper-setting-inside-the-settings-app-provide-a-file-input-accept-mp4-video-mp4-that-lets-the-user-pick-an-mp4-file-from-their-device-on-selection-read-the-file-as-a-blob-arraybuffer-and-upload-it-to-the-motoko-backend-for-persistent-storage-the-stored-video-must-be-served-back-and-rendered-as-a-full-screen-looping-background-video-element-with-autoplay-loop-and-unmuted-audio-sound-on-by-default-the-motoko-backend-must-store-the-video-as-a-blob-nat8-array-and-expose-upload-retrieval-endpoints",
+      "featureTitle": "Add local device MP4 file upload support for the wallpaper setting inside the Settings app. Provide a file input (accept='.mp4,video/mp4') that lets the user pick an MP4 file from their device. On selection, read the file as a Blob/ArrayBuffer and upload it to the Motoko backend for persistent storage. The stored video must be served back and rendered as a full-screen looping background video element with autoplay, loop, and unmuted audio (sound on by default). The Motoko backend must store the video as a Blob (Nat8 array) and expose upload/retrieval endpoints.",
+      "files": [
+        "frontend/src/components/SettingsPanel.tsx",
+        "frontend/src/components/Wallpaper.tsx",
+        "frontend/src/hooks/useQueries.ts"
+      ],
+      "components": [
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-16"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-fix-app-persistence-so-that-adding-and-removing-apps-is-reliably-saved-to-the-motoko-backend-and-reflected-for-all-visitors-verify-that-the-addapp-and-removeapp-backend-calls-complete-successfully-before-updating-local-state-add-error-handling-with-toast-notifications-on-failure-and-ensure-the-app-list-is-re-fetched-query-invalidated-after-every-add-or-remove-operation-remove-any-stale-local-state-that-might-override-backend-data",
+      "featureTitle": "Fix app persistence so that adding and removing apps is reliably saved to the Motoko backend and reflected for all visitors. Verify that the addApp and removeApp backend calls complete successfully before updating local state, add error handling with toast notifications on failure, and ensure the app list is re-fetched (query invalidated) after every add or remove operation. Remove any stale local state that might override backend data.",
+      "files": [
+        "frontend/src/components/AddAppDialog.tsx",
+        "frontend/src/components/AppIcon.tsx",
+        "frontend/src/components/Desktop.tsx",
+        "frontend/src/hooks/useQueries.ts"
+      ],
+      "components": [
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-17"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

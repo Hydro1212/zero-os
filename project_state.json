@@ -1,0 +1,249 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 9,
+  "summary": "Zero OS: A Windows-inspired OS-styled website with a futuristic neon UI. Features a taskbar, settings panel for personalization, MP4 wallpaper support with sound (pin-protected, PIN: 2011), and enhanced particle effects. Users can add custom URLs as apps, settings persist on every site launch, and others can view the site publicly.",
+  "architectural_notes": [
+    "Project is named 'Zero OS' — branding should reflect this throughout the UI",
+    "Futuristic neon design language: dark backgrounds, glowing neon accents, clean typography",
+    "App data (custom URLs) should be saved to localStorage for persistence across sessions",
+    "Wallpaper can be an MP4 video with audio; changing the wallpaper requires PIN '2011'",
+    "Enhanced particle system on the desktop background for futuristic atmosphere",
+    "Taskbar should have a richer visual design with glows, gradients, and depth — not flat/plain",
+    "Wallpaper rendering must prioritize full resolution; avoid scaling artifacts on video or image backgrounds",
+    "Local device file upload for MP4 wallpapers should use FileReader or object URLs and persist via localStorage or backend"
+  ],
+  "known_issues": [
+    "Taskbar appears visually plain and needs a more polished neon/futuristic design",
+    "Wallpaper renders at low resolution — needs full-resolution rendering fix",
+    "Apps added/removed may not be persisting correctly — needs verification and fix"
+  ],
+  "isFixRequest": false,
+  "existing_features": [
+    {
+      "id": "feature-create-a-full-screen-os-desktop-ui-inspired-by-windows-with-a-futuristic-neon-aesthetic-the-desktop-must-include-a-wallpaper-background-with-a-dark-futuristic-tone-a-taskbar-at-the-bottom-with-a-start-logo-area-showing-zero-os-a-clock-and-running-app-indicators-app-icons-should-sit-on-the-desktop-grid-use-neon-accent-colors-cyan-magenta-or-green-on-near-black-backgrounds-glowing-borders-and-sharp-modern-typography-to-reinforce-the-futuristic-theme-consistently-across-all-ui-surfaces",
+      "title": "Create a full-screen OS desktop UI inspired by Windows with a futuristic neon aesthetic. The desktop must include: a wallpaper background with a dark futuristic tone, a taskbar at the bottom with a start/logo area showing 'Zero OS', a clock, and running app indicators. App icons should sit on the desktop grid. Use neon accent colors (cyan, magenta, or green on near-black backgrounds), glowing borders, and sharp modern typography to reinforce the futuristic theme consistently across all UI surfaces.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-an-add-app-feature-on-the-desktop-that-lets-the-site-owner-add-a-custom-url-and-a-label-each-added-url-becomes-an-app-icon-on-the-desktop-double-clicking-or-clicking-an-app-icon-opens-the-url-in-a-new-tab-or-in-an-in-desktop-iframe-window-icons-should-display-the-label-and-a-favicon-or-generic-neon-app-icon",
+      "title": "Implement an 'Add App' feature on the desktop that lets the site owner add a custom URL and a label. Each added URL becomes an app icon on the desktop. Double-clicking or clicking an app icon opens the URL (in a new tab or in an in-desktop iframe window). Icons should display the label and a favicon or generic neon app icon.",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-persist-all-app-url-configurations-in-the-backend-motoko-canister-so-they-are-saved-across-every-site-launch-and-are-publicly-visible-to-all-visitors-all-users-who-visit-the-site-should-see-the-same-desktop-with-the-same-apps",
+      "title": "Persist all app/URL configurations in the backend (Motoko canister) so they are saved across every site launch and are publicly visible to all visitors. All users who visit the site should see the same desktop with the same apps.",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-windowed-app-interactions-clicking-a-desktop-icon-opens-a-floating-draggable-window-panel-styled-with-neon-borders-and-a-dark-title-bar-showing-the-app-name-minimize-maximize-and-close-buttons-the-window-should-be-resizable-and-layerable-z-index-management-for-focus-content-inside-the-window-renders-the-target-url-in-an-iframe-where-possible",
+      "title": "Implement windowed app interactions: clicking a desktop icon opens a floating draggable 'window' panel styled with neon borders and a dark title bar (showing the app name, minimize, maximize, and close buttons). The window should be resizable and layerable (z-index management for focus). Content inside the window renders the target URL in an iframe where possible.",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-apply-a-cohesive-futuristic-neon-visual-theme-dark-near-black-0a0a0f-or-similar-background-neon-cyan-00f5ff-and-neon-magenta-ff00cc-accent-colors-for-glows-borders-and-highlights-use-a-monospace-or-geometric-sans-serif-font-e-g-orbitron-or-share-tech-mono-from-google-fonts-add-subtle-scanline-or-grid-overlay-effect-to-the-desktop-wallpaper-for-a-retro-futuristic-feel",
+      "title": "Apply a cohesive futuristic neon visual theme: dark near-black (#0a0a0f or similar) background, neon cyan (#00f5ff) and neon magenta (#ff00cc) accent colors for glows, borders, and highlights. Use a monospace or geometric sans-serif font (e.g., 'Orbitron' or 'Share Tech Mono' from Google Fonts). Add subtle scanline or grid overlay effect to the desktop wallpaper for a retro-futuristic feel.",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-enhance-the-existing-taskbar-component-to-be-fully-visible-and-persistent-at-the-bottom-of-the-desktop-at-all-times-showing-the-zero-os-logo-start-button-a-live-clock-running-app-indicators-and-a-settings-button-that-opens-the-settings-panel",
+      "title": "Enhance the existing Taskbar component to be fully visible and persistent at the bottom of the desktop at all times, showing the 'Zero OS' logo/start button, a live clock, running app indicators, and a Settings button that opens the Settings panel.",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-a-settings-panel-accessible-from-the-taskbar-settings-button-that-allows-the-site-owner-to-personalize-the-desktop-settings-include-accent-color-selection-cyan-magenta-green-wallpaper-change-image-url-or-mp4-url-and-desktop-label-all-settings-must-be-persisted-in-the-motoko-backend-so-they-are-visible-to-all-users-on-every-load",
+      "title": "Implement a Settings panel (accessible from the taskbar Settings button) that allows the site owner to personalize the desktop. Settings include: accent color selection (cyan, magenta, green), wallpaper change (image URL or MP4 URL), and desktop label. All settings must be persisted in the Motoko backend so they are visible to all users on every load.",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-pin-protection-to-the-wallpaper-change-setting-when-a-user-attempts-to-change-the-wallpaper-they-must-enter-pin-2011-in-a-prompt-dialog-before-the-change-is-applied-incorrect-pin-shows-an-error-correct-pin-allows-the-wallpaper-to-be-updated",
+      "title": "Add PIN protection to the wallpaper change setting. When a user attempts to change the wallpaper, they must enter PIN '2011' in a prompt/dialog before the change is applied. Incorrect PIN shows an error. Correct PIN allows the wallpaper to be updated.",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-support-mp4-video-wallpapers-with-audio-on-the-desktop-when-the-wallpaper-setting-is-an-mp4-url-render-it-as-a-full-screen-background-video-element-with-autoplay-loop-and-unmuted-audio-the-video-must-be-audible-sound-on-by-default-fall-back-to-a-static-image-or-the-default-dark-background-if-the-url-is-not-an-mp4",
+      "title": "Support MP4 video wallpapers with audio on the desktop. When the wallpaper setting is an MP4 URL, render it as a full-screen background <video> element with autoplay, loop, and unmuted audio. The video must be audible (sound on by default). Fall back to a static image or the default dark background if the URL is not an MP4.",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-significantly-increase-the-particle-effects-on-the-desktop-to-create-a-dense-immersive-futuristic-feel-add-more-floating-particles-with-varied-sizes-speeds-and-neon-colors-cyan-magenta-white-include-additional-particle-types-such-as-drifting-data-streams-glowing-orbs-and-scanline-flickers-to-reinforce-the-futuristic-pc-aesthetic",
+      "title": "Significantly increase the particle effects on the desktop to create a dense, immersive futuristic feel. Add more floating particles with varied sizes, speeds, and neon colors (cyan, magenta, white). Include additional particle types such as drifting data streams, glowing orbs, and scanline flickers to reinforce the futuristic PC aesthetic.",
+      "reqIds": [
+        "REQ-10"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-expand-the-settings-panel-with-many-additional-functional-settings-all-persisted-to-the-motoko-backend-and-applied-globally-new-settings-must-include-font-size-small-medium-large-affecting-desktop-icon-labels-and-ui-text-ui-transparency-blur-level-for-windows-and-panels-0-100-slider-clock-format-toggle-12-hour-vs-24-hour-taskbar-height-compact-normal-tall-desktop-icon-size-small-medium-large-particle-effect-intensity-off-low-medium-high-scanline-overlay-toggle-on-off-grid-overlay-toggle-on-off-window-border-glow-intensity-none-subtle-intense-and-a-desktop-label-tagline-text-field-each-setting-must-read-its-current-value-from-the-backend-on-load-and-save-changes-back-to-the-backend-when-updated",
+      "title": "Expand the Settings panel with many additional functional settings, all persisted to the Motoko backend and applied globally. New settings must include: font size (small/medium/large affecting desktop icon labels and UI text), UI transparency/blur level for windows and panels (0–100% slider), clock format toggle (12-hour vs 24-hour), taskbar height (compact/normal/tall), desktop icon size (small/medium/large), particle effect intensity (off/low/medium/high), scanline overlay toggle (on/off), grid overlay toggle (on/off), window border glow intensity (none/subtle/intense), and a desktop label/tagline text field. Each setting must read its current value from the backend on load and save changes back to the backend when updated.",
+      "reqIds": [
+        "REQ-12"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-redesign-the-taskbar-component-to-look-visually-impressive-and-polished-with-a-rich-neon-futuristic-aesthetic-replace-the-plain-flat-bar-with-a-multi-layered-design-that-includes-a-frosted-glass-translucent-dark-background-with-a-neon-accent-top-border-glow-distinct-styled-sections-for-the-zero-os-logo-start-button-with-a-glowing-emblem-the-center-app-tray-running-apps-shown-as-neon-bordered-pill-buttons-with-favicon-and-label-and-the-right-system-tray-clock-with-date-below-it-settings-icon-add-animated-hover-states-glow-pulse-on-all-interactive-elements-the-taskbar-must-still-sit-fixed-at-the-bottom-and-remain-fully-visible-at-all-times",
+      "title": "Redesign the Taskbar component to look visually impressive and polished with a rich neon futuristic aesthetic. Replace the plain flat bar with a multi-layered design that includes: a frosted glass / translucent dark background with a neon accent top border glow, distinct styled sections for the Zero OS logo/start button (with a glowing emblem), the center app tray (running apps shown as neon-bordered pill buttons with favicon and label), and the right system tray (clock with date below it, settings icon). Add animated hover states (glow pulse) on all interactive elements. The taskbar must still sit fixed at the bottom and remain fully visible at all times.",
+      "reqIds": [
+        "REQ-13"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-fix-the-wallpaper-rendering-to-display-at-full-native-resolution-without-blurriness-or-quality-degradation-for-image-wallpapers-ensure-the-img-or-css-background-uses-object-fit-cover-at-100vw-100vh-without-upscaling-artifacts-for-mp4-video-wallpapers-ensure-the-video-element-is-rendered-at-its-native-resolution-with-object-fit-cover-and-that-no-css-scaling-compression-or-low-quality-interpolation-is-applied-remove-any-css-filter-transform-or-scaling-properties-that-could-reduce-visual-quality",
+      "title": "Fix the wallpaper rendering to display at full native resolution without blurriness or quality degradation. For image wallpapers, ensure the <img> or CSS background uses object-fit: cover at 100vw × 100vh without upscaling artifacts. For MP4 video wallpapers, ensure the <video> element is rendered at its native resolution with object-fit: cover, and that no CSS scaling, compression, or low-quality interpolation is applied. Remove any CSS filter, transform, or scaling properties that could reduce visual quality.",
+      "reqIds": [
+        "REQ-14"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-dedicated-settings-app-icon-on-the-desktop-that-when-clicked-opens-the-settings-panel-as-a-proper-windowed-application-draggable-resizable-with-neon-title-bar-and-minimize-maximize-close-controls-rather-than-as-a-separate-overlay-the-settings-window-must-show-all-existing-settings-in-a-well-organized-functional-layout-with-clearly-labeled-sections-appearance-wallpaper-desktop-taskbar-effects-clock",
+      "title": "Create a dedicated 'Settings' app icon on the desktop that, when clicked, opens the Settings panel as a proper windowed application (draggable, resizable, with neon title bar and minimize/maximize/close controls), rather than as a separate overlay. The settings window must show all existing settings in a well-organized, functional layout with clearly labeled sections (Appearance, Wallpaper, Desktop, Taskbar, Effects, Clock).",
+      "reqIds": [
+        "REQ-15"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-local-device-mp4-file-upload-support-for-the-wallpaper-setting-inside-the-settings-app-provide-a-file-input-accept-mp4-video-mp4-that-lets-the-user-pick-an-mp4-file-from-their-device-on-selection-read-the-file-as-a-blob-arraybuffer-and-upload-it-to-the-motoko-backend-for-persistent-storage-the-stored-video-must-be-served-back-and-rendered-as-a-full-screen-looping-background-video-element-with-autoplay-loop-and-unmuted-audio-sound-on-by-default-the-motoko-backend-must-store-the-video-as-a-blob-nat8-array-and-expose-upload-retrieval-endpoints",
+      "title": "Add local device MP4 file upload support for the wallpaper setting inside the Settings app. Provide a file input (accept='.mp4,video/mp4') that lets the user pick an MP4 file from their device. On selection, read the file as a Blob/ArrayBuffer and upload it to the Motoko backend for persistent storage. The stored video must be served back and rendered as a full-screen looping background video element with autoplay, loop, and unmuted audio (sound on by default). The Motoko backend must store the video as a Blob (Nat8 array) and expose upload/retrieval endpoints.",
+      "reqIds": [
+        "REQ-16"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-fix-app-persistence-so-that-adding-and-removing-apps-is-reliably-saved-to-the-motoko-backend-and-reflected-for-all-visitors-verify-that-the-addapp-and-removeapp-backend-calls-complete-successfully-before-updating-local-state-add-error-handling-with-toast-notifications-on-failure-and-ensure-the-app-list-is-re-fetched-query-invalidated-after-every-add-or-remove-operation-remove-any-stale-local-state-that-might-override-backend-data",
+      "title": "Fix app persistence so that adding and removing apps is reliably saved to the Motoko backend and reflected for all visitors. Verify that the addApp and removeApp backend calls complete successfully before updating local state, add error handling with toast notifications on failure, and ensure the app list is re-fetched (query invalidated) after every add or remove operation. Remove any stale local state that might override backend data.",
+      "reqIds": [
+        "REQ-17"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "OS-styled desktop UI inspired by Windows with futuristic neon aesthetic",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Add custom URLs as app icons on the desktop",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Persist app/URL configuration on every site launch (localStorage or similar)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Public-facing site so others can view the OS desktop",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "Add a taskbar to the desktop UI",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-6",
+      "summary": "Settings panel to personalize the site for the owner and visible to other users",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-7",
+      "summary": "Allow wallpaper to be an MP4 video with sound; wallpaper changes are PIN-protected (PIN: 2011)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-8",
+      "summary": "Add more particle effects to the desktop for a futuristic PC feel",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-14",
+      "summary": "Extend the Motoko backend actor to store and retrieve site settings (accent color, wallpaper URL, desktop label) as a single settings record. Expose getSettings and saveSettings update functions.",
+      "reqIds": [
+        "REQ-11"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-15",
+      "summary": "Add many more functional settings to the settings panel (e.g., font size, transparency/blur effects, clock format, taskbar position, icon size, sound toggle, etc.)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-16",
+      "summary": "Improve taskbar visual design — make it look more polished and visually impressive, less plain",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-17",
+      "summary": "Improve wallpaper resolution and quality — ensure video/image wallpapers render at full high-resolution without blurriness or low-quality artifacts",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-18",
+      "summary": "Settings app with real functional settings (not just cosmetic)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-19",
+      "summary": "MP4 wallpaper support from local device upload that plays with sound",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-20",
+      "summary": "Ensure apps added and removed are properly saved/persisted",
+      "reqIds": [],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "Zero OS",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

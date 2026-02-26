@@ -1,0 +1,88 @@
+{
+  "kind": "spec_vs_diff_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-26T14:47:25.040Z",
+  "summary": "The diff implements most of REQ-15, REQ-16, and REQ-17, but several critical acceptance criteria are missing or only partially implemented. REQ-16 is significantly incomplete: the backend does not expose uploadWallpaperVideo or getWallpaperVideo endpoints, and the frontend uses URL.createObjectURL (local blob URL) instead of storing/retrieving binary data from the Motoko backend. REQ-17 is partially broken: useRemoveApp does not call the backend removeApp at all, and useGetApps reads only from localStorage instead of the backend, meaning all visitors do not see the same app list.",
+  "missing_requirements": [
+    {
+      "id": "REQ-16",
+      "requirement": "The Motoko backend must store the MP4 video as a Blob (Nat8 array) and expose uploadWallpaperVideo and getWallpaperVideo endpoints.",
+      "reason": "The backend/main.mo does not contain any uploadWallpaperVideo or getWallpaperVideo functions. The frontend useUploadWallpaperVideo mutation creates a local object URL via URL.createObjectURL instead of uploading binary data to the backend.",
+      "evidence": [
+        "backend/main.mo",
+        "frontend/src/hooks/useQueries.ts"
+      ]
+    },
+    {
+      "id": "REQ-16",
+      "requirement": "After upload, the desktop Wallpaper component must fetch the video from the backend and render it persistently across sessions and for all visitors.",
+      "reason": "Because no backend storage or retrieval endpoint exists, the video is never actually fetched from the backend. The blob URL is session-local and not persistent across page reloads or for other visitors.",
+      "evidence": [
+        "frontend/src/hooks/useQueries.ts",
+        "frontend/src/components/Wallpaper.tsx"
+      ]
+    },
+    {
+      "id": "REQ-17",
+      "requirement": "Removing an app must persist the deletion to the Motoko backend before updating local state.",
+      "reason": "The useRemoveApp mutation only removes from localStorage and never calls actor.removeApp or any backend endpoint. There is no backend removeApp function in the diff either.",
+      "evidence": [
+        "frontend/src/hooks/useQueries.ts",
+        "backend/main.mo"
+      ]
+    },
+    {
+      "id": "REQ-17",
+      "requirement": "The app list must be fetched from the Motoko backend so all visitors see the same up-to-date app list.",
+      "reason": "useGetApps reads exclusively from localStorage via loadAppsFromStorage. No backend query is made, so different visitors with different localStorage will see different app lists.",
+      "evidence": [
+        "frontend/src/hooks/useQueries.ts"
+      ]
+    },
+    {
+      "id": "REQ-17",
+      "requirement": "If the backend call fails when adding an app, a neon-styled error toast notification must be shown and the UI state must not be updated.",
+      "reason": "In useAddApp, a backend failure is silently caught and execution continues to update localStorage anyway. The UI is updated even when the backend rejects the call.",
+      "evidence": [
+        "frontend/src/hooks/useQueries.ts"
+      ]
+    }
+  ],
+  "hallucinated_features": [
+    {
+      "description": "VideoSettings type and updateVideoSettings/getVideoSettings endpoints added to the Motoko backend storing isMuted, volume, and playbackSpeed.",
+      "reason": "No requirement in the build request asks for separate video playback settings to be stored in the backend. These were not requested.",
+      "evidence": [
+        "backend/main.mo"
+      ]
+    },
+    {
+      "description": "doesFileExist backend function stub added to main.mo.",
+      "reason": "No requirement asks for a file-existence check endpoint in the backend.",
+      "evidence": [
+        "backend/main.mo"
+      ]
+    },
+    {
+      "description": "An 'Apps' section added to the SettingsPanel sections list in addition to the six requested sections.",
+      "reason": "The build request specifies exactly six sections: Appearance, Wallpaper, Desktop, Taskbar, Effects, Clock. An 'Apps' section was not requested.",
+      "evidence": [
+        "frontend/src/components/SettingsPanel.tsx"
+      ]
+    }
+  ],
+  "confidence": 0.85,
+  "changed_files": [
+    "backend/main.mo",
+    "frontend-file-summaries.txt",
+    "frontend/src/components/AddAppDialog.tsx",
+    "frontend/src/components/AppIcon.tsx",
+    "frontend/src/components/Desktop.tsx",
+    "frontend/src/components/SettingsPanel.tsx",
+    "frontend/src/components/Taskbar.tsx",
+    "frontend/src/components/Wallpaper.tsx",
+    "frontend/src/hooks/useQueries.ts",
+    "frontend/src/hooks/useSettings.ts",
+    "project_state.json"
+  ]
+}

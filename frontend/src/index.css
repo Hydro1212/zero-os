@@ -1,0 +1,197 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: oklch(0.08 0.02 240);
+    --foreground: oklch(0.92 0.05 195);
+    --card: oklch(0.1 0.03 240);
+    --card-foreground: oklch(0.92 0.05 195);
+    --popover: oklch(0.09 0.03 240);
+    --popover-foreground: oklch(0.92 0.05 195);
+    --primary: oklch(0.85 0.2 195);
+    --primary-foreground: oklch(0.08 0.02 240);
+    --secondary: oklch(0.75 0.25 320);
+    --secondary-foreground: oklch(0.08 0.02 240);
+    --muted: oklch(0.15 0.03 240);
+    --muted-foreground: oklch(0.55 0.05 240);
+    --accent: oklch(0.8 0.2 145);
+    --accent-foreground: oklch(0.08 0.02 240);
+    --destructive: oklch(0.65 0.25 25);
+    --destructive-foreground: oklch(0.95 0.02 25);
+    --border: oklch(0.85 0.2 195 / 0.2);
+    --input: oklch(0.12 0.03 240);
+    --ring: oklch(0.85 0.2 195 / 0.5);
+    --radius: 0.5rem;
+    --success: oklch(0.8 0.2 145);
+    --warning: oklch(0.85 0.18 75);
+  }
+
+  .dark {
+    --background: oklch(0.06 0.02 240);
+    --foreground: oklch(0.92 0.05 195);
+    --card: oklch(0.09 0.03 240);
+    --card-foreground: oklch(0.92 0.05 195);
+    --popover: oklch(0.08 0.03 240);
+    --popover-foreground: oklch(0.92 0.05 195);
+    --primary: oklch(0.85 0.2 195);
+    --primary-foreground: oklch(0.06 0.02 240);
+    --secondary: oklch(0.75 0.25 320);
+    --secondary-foreground: oklch(0.06 0.02 240);
+    --muted: oklch(0.13 0.03 240);
+    --muted-foreground: oklch(0.5 0.05 240);
+    --accent: oklch(0.8 0.2 145);
+    --accent-foreground: oklch(0.06 0.02 240);
+    --destructive: oklch(0.6 0.25 25);
+    --destructive-foreground: oklch(0.95 0.02 25);
+    --border: oklch(0.85 0.2 195 / 0.15);
+    --input: oklch(0.1 0.03 240);
+    --ring: oklch(0.85 0.2 195 / 0.4);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Share Tech Mono', monospace;
+    overflow: hidden;
+  }
+}
+
+/* ─── Neon OS Utilities ─── */
+@layer utilities {
+  /* Font size variants */
+  .text-size-small { font-size: 0.75rem; }
+  .text-size-medium { font-size: 0.875rem; }
+  .text-size-large { font-size: 1rem; }
+
+  /* Taskbar height variants */
+  .taskbar-compact { height: 44px; }
+  .taskbar-normal  { height: 56px; }
+  .taskbar-tall    { height: 72px; }
+
+  /* Icon size variants */
+  .icon-size-small  { width: 56px; height: 56px; }
+  .icon-size-medium { width: 72px; height: 72px; }
+  .icon-size-large  { width: 88px; height: 88px; }
+
+  /* Window glow variants */
+  .glow-none    { box-shadow: none; }
+  .glow-subtle  { box-shadow: 0 0 8px oklch(0.85 0.2 195 / 0.4), 0 0 20px oklch(0.85 0.2 195 / 0.15); }
+  .glow-intense { box-shadow: 0 0 16px oklch(0.85 0.2 195 / 0.8), 0 0 40px oklch(0.85 0.2 195 / 0.4), 0 0 80px oklch(0.85 0.2 195 / 0.2); }
+
+  /* Backdrop blur levels */
+  .backdrop-blur-level-none   { backdrop-filter: blur(0px); }
+  .backdrop-blur-level-low    { backdrop-filter: blur(4px); }
+  .backdrop-blur-level-medium { backdrop-filter: blur(12px); }
+  .backdrop-blur-level-high   { backdrop-filter: blur(24px); }
+
+  /* Neon text glow */
+  .neon-text-cyan    { color: oklch(0.85 0.2 195); text-shadow: 0 0 8px oklch(0.85 0.2 195 / 0.8); }
+  .neon-text-magenta { color: oklch(0.75 0.25 320); text-shadow: 0 0 8px oklch(0.75 0.25 320 / 0.8); }
+  .neon-text-green   { color: oklch(0.8 0.2 145); text-shadow: 0 0 8px oklch(0.8 0.2 145 / 0.8); }
+
+  /* Neon border glow */
+  .neon-border-cyan    { border-color: oklch(0.85 0.2 195 / 0.5); box-shadow: 0 0 8px oklch(0.85 0.2 195 / 0.3); }
+  .neon-border-magenta { border-color: oklch(0.75 0.25 320 / 0.5); box-shadow: 0 0 8px oklch(0.75 0.25 320 / 0.3); }
+  .neon-border-green   { border-color: oklch(0.8 0.2 145 / 0.5); box-shadow: 0 0 8px oklch(0.8 0.2 145 / 0.3); }
+
+  /* OS surface */
+  .os-surface {
+    background: oklch(0.08 0.02 240 / 0.85);
+    backdrop-filter: blur(12px);
+    border: 1px solid oklch(0.85 0.2 195 / 0.2);
+  }
+
+  /* Scanline overlay */
+  .scanline-overlay {
+    background-image: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      oklch(0 0 0 / 0.06) 2px,
+      oklch(0 0 0 / 0.06) 4px
+    );
+    background-size: 100% 4px;
+  }
+
+  /* Grid overlay */
+  .grid-overlay {
+    background-image:
+      linear-gradient(oklch(0.85 0.2 195 / 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, oklch(0.85 0.2 195 / 0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+}
+
+/* ─── Keyframe Animations ─── */
+@keyframes data-stream {
+  0%   { transform: translateY(-100%); opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { transform: translateY(100vh); opacity: 0; }
+}
+
+@keyframes orb-float {
+  0%, 100% { transform: translateY(0px) scale(1); }
+  50%       { transform: translateY(-20px) scale(1.05); }
+}
+
+@keyframes particle-drift {
+  0%   { transform: translate(0, 0) rotate(0deg); opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 0.5; }
+  100% { transform: translate(var(--dx, 100px), var(--dy, -200px)) rotate(360deg); opacity: 0; }
+}
+
+@keyframes scan-sweep {
+  0%   { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+@keyframes neon-pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.6; }
+}
+
+@keyframes neon-flicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; }
+  20%, 24%, 55% { opacity: 0.4; }
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 8px oklch(0.85 0.2 195 / 0.4); }
+  50%       { box-shadow: 0 0 20px oklch(0.85 0.2 195 / 0.8), 0 0 40px oklch(0.85 0.2 195 / 0.3); }
+}
+
+/* ─── Scrollbar Styling ─── */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: oklch(0.08 0.02 240); }
+::-webkit-scrollbar-thumb { background: oklch(0.85 0.2 195 / 0.3); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: oklch(0.85 0.2 195 / 0.6); }
+
+/* ─── Selection ─── */
+::selection {
+  background: oklch(0.85 0.2 195 / 0.3);
+  color: oklch(0.95 0.05 195);
+}
+
+/* ─── Focus ring ─── */
+:focus-visible {
+  outline: 1px solid oklch(0.85 0.2 195 / 0.6);
+  outline-offset: 2px;
+}

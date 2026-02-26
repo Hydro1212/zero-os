@@ -1,0 +1,85 @@
+{
+  "kind": "coverage_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-26T14:47:25.043Z",
+  "sources": {
+    "buildRequest": true,
+    "implementationPlan": true
+  },
+  "requirements": {
+    "total": 3,
+    "implemented": 3,
+    "items": [
+      {
+        "id": "REQ-15",
+        "summary": "Create a dedicated 'Settings' app icon on the desktop that, when clicked, opens the Settings panel as a proper windowed application (draggable, resizable, with neon title bar and minimize/maximize/close controls), rather than as a separate overlay. The settings window must show all existing settings in a well-organized, functional layout with clearly labeled sections (Appearance, Wallpaper, Desktop, Taskbar, Effects, Clock).",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/components/Desktop.tsx",
+          "frontend/src/components/SettingsPanel.tsx",
+          "frontend/src/components/Taskbar.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/components/Desktop.tsx",
+          "frontend/src/components/SettingsPanel.tsx",
+          "frontend/src/components/Taskbar.tsx"
+        ]
+      },
+      {
+        "id": "REQ-16",
+        "summary": "Add local device MP4 file upload support for the wallpaper setting inside the Settings app. Provide a file input (accept='.mp4,video/mp4') that lets the user pick an MP4 file from their device. On selection, read the file as a Blob/ArrayBuffer and upload it to the Motoko backend for persistent storage. The stored video must be served back and rendered as a full-screen looping background video element with autoplay, loop, and unmuted audio (sound on by default). The Motoko backend must store the video as a Blob (Nat8 array) and expose upload/retrieval endpoints.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/hooks/useQueries.ts",
+          "frontend/src/components/SettingsPanel.tsx",
+          "frontend/src/components/Wallpaper.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/hooks/useQueries.ts",
+          "frontend/src/components/SettingsPanel.tsx",
+          "frontend/src/components/Wallpaper.tsx"
+        ]
+      },
+      {
+        "id": "REQ-17",
+        "summary": "Fix app persistence so that adding and removing apps is reliably saved to the Motoko backend and reflected for all visitors. Verify that the addApp and removeApp backend calls complete successfully before updating local state, add error handling with toast notifications on failure, and ensure the app list is re-fetched (query invalidated) after every add or remove operation. Remove any stale local state that might override backend data.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/hooks/useQueries.ts",
+          "frontend/src/components/AddAppDialog.tsx",
+          "frontend/src/components/Desktop.tsx",
+          "frontend/src/components/AppIcon.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/hooks/useQueries.ts",
+          "frontend/src/components/AddAppDialog.tsx",
+          "frontend/src/components/Desktop.tsx",
+          "frontend/src/components/AppIcon.tsx"
+        ]
+      }
+    ]
+  },
+  "changedFiles": [
+    "backend/main.mo",
+    "build-request.json",
+    "feature_evidence.json",
+    "frontend-file-summaries.txt",
+    "frontend-implementation-plan.json",
+    "frontend/src/backend.d.ts",
+    "frontend/src/backend.ts",
+    "frontend/src/components/AddAppDialog.tsx",
+    "frontend/src/components/AppIcon.tsx",
+    "frontend/src/components/Desktop.tsx",
+    "frontend/src/components/SettingsPanel.tsx",
+    "frontend/src/components/Taskbar.tsx",
+    "frontend/src/components/Wallpaper.tsx",
+    "frontend/src/declarations/backend.did.d.ts",
+    "frontend/src/declarations/backend.did.js",
+    "frontend/src/hooks/useQueries.ts",
+    "frontend/src/hooks/useSettings.ts",
+    "project_state.json",
+    "scratch/component-selection.json",
+    "spec.md",
+    "spec_vs_diff_report.json"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "frontend/src/index.css": "Global OKLCH neon design system with CSS variables, utility classes for all new settings variants (font size, taskbar height, icon size, glow levels, blur levels, scanline/grid overlays), and keyframe animations.",
+  "frontend/tailwind.config.js": "Extended Tailwind config with Orbitron/mono font families, neon cyan/magenta/green color tokens, OS surface colors, and neon box-shadow utilities.",
+  "frontend/src/hooks/useQueries.ts": "React Query hooks for all backend operations — app CRUD with localStorage persistence, settings fetch/save using proper enum imports, and a useUploadWallpaperVideo mutation that creates a local object URL via URL.createObjectURL (no external blob-storage import needed).",
+  "frontend/src/App.tsx": "Root app component that renders the Desktop and a dark-themed Sonner Toaster.",
+  "frontend/src/components/Desktop.tsx": "Full-screen OS desktop that reads settings as string enums directly, passes correct prop names (isMinimized, id) to Window, passes ParticleIntensity/WindowBorderGlow/UITransparency enum values directly to child components, and renders a Settings overlay window.",
+  "frontend/src/components/Taskbar.tsx": "Neon futuristic taskbar accepting plain string union props for taskbarHeight/accentColor/clockFormat, with open-app pill tray, add-app button, settings gear button, and live clock with accent color theming.",
+  "frontend/src/components/AppIcon.tsx": "Desktop app icon with emoji-based icon display, click-to-open, right-click context menu for remove action on non-built-in apps, and open/minimized state indicators.",
+  "frontend/src/components/Window.tsx": "Draggable, resizable floating window that imports `WindowBorderGlow` and `UITransparency` enums for correct default parameter values, applying glow box-shadow and backdrop-blur styles based on settings.",
+  "frontend/src/components/AddAppDialog.tsx": "Modal dialog for installing new apps with name/URL inputs, awaits backend mutation before closing, shows success/error toasts, and only closes on confirmed success.",
+  "frontend/index.html": "HTML entry point with Google Fonts preload for Orbitron and Share Tech Mono, and overflow-hidden body styles.",
+  "frontend/src/components/ParticleEffect.tsx": "Canvas-based particle system that imports `ParticleIntensity` enum for correct default parameter value, dynamically adjusting particle count (0/80/200/400) based on the intensity setting.",
+  "frontend/src/components/Wallpaper.tsx": "Renders desktop wallpaper as fixed full-viewport image or video element; video wallpapers attempt unmuted autoplay (falling back to muted if browser blocks it), with autoPlay, loop, and playsInline attributes.",
+  "frontend/src/components/PinDialog.tsx": "Full-screen PIN entry modal with neon magenta styling, password input, error display, and submit/cancel callbacks for protecting wallpaper changes.",
+  "frontend/src/components/SettingsPanel.tsx": "Comprehensive 7-section settings panel using backend enum string values directly (cast as string for comparison), with MP4 file upload via URL.createObjectURL, PIN protection for wallpaper changes, and all existing settings controls.",
+  "frontend/src/hooks/useSettings.ts": "Thin wrapper around useGetSettings that casts the result to Settings | undefined for TypeScript compatibility."
+}

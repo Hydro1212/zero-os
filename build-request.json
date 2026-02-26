@@ -1,0 +1,90 @@
+{
+  "kind": "build_request",
+  "title": "Settings App with Functional Settings, Local MP4 Wallpaper Upload with Sound, and Persistent App CRUD",
+  "projectName": "Zero OS",
+  "priority": "high",
+  "requirements": [
+    {
+      "id": "REQ-15",
+      "text": "Create a dedicated 'Settings' app icon on the desktop that, when clicked, opens the Settings panel as a proper windowed application (draggable, resizable, with neon title bar and minimize/maximize/close controls), rather than as a separate overlay. The settings window must show all existing settings in a well-organized, functional layout with clearly labeled sections (Appearance, Wallpaper, Desktop, Taskbar, Effects, Clock).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "add a settings app that actually has settings"
+        ]
+      },
+      "acceptanceCriteria": [
+        "A 'Settings' app icon appears on the desktop grid alongside other apps",
+        "Clicking the Settings icon opens the settings UI inside a draggable/resizable neon window",
+        "The window has a title bar reading 'Settings' with minimize, maximize, and close buttons",
+        "All existing settings (accent color, wallpaper, font size, blur, clock format, taskbar height, icon size, particle intensity, scanlines, grid overlay, glow intensity, desktop label) are present and functional inside the window",
+        "Settings changes are applied immediately and persisted to the Motoko backend"
+      ]
+    },
+    {
+      "id": "REQ-16",
+      "text": "Add local device MP4 file upload support for the wallpaper setting inside the Settings app. Provide a file input (accept='.mp4,video/mp4') that lets the user pick an MP4 file from their device. On selection, read the file as a Blob/ArrayBuffer and upload it to the Motoko backend for persistent storage. The stored video must be served back and rendered as a full-screen looping background video element with autoplay, loop, and unmuted audio (sound on by default). The Motoko backend must store the video as a Blob (Nat8 array) and expose upload/retrieval endpoints.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "mp4 wallpapers I can add from my own device that plays sound with the video"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Settings wallpaper section shows a 'Upload MP4' file input button accepting .mp4 files",
+        "Selecting a local MP4 file triggers upload to the Motoko backend via a new uploadWallpaperVideo endpoint",
+        "The backend stores the MP4 binary data (as [Nat8]) and exposes a getWallpaperVideo query",
+        "After upload, the desktop Wallpaper component fetches and renders the video as a full-screen <video> element with autoplay, loop, muted=false, and playsInline",
+        "Audio plays automatically when the video wallpaper loads",
+        "The video covers the full viewport with object-fit: cover and no quality-degrading CSS transforms",
+        "Existing URL-based wallpaper input remains available alongside the file upload option",
+        "The upload is PIN-protected (PIN: 2011) consistent with existing wallpaper change protection"
+      ]
+    },
+    {
+      "id": "REQ-17",
+      "text": "Fix app persistence so that adding and removing apps is reliably saved to the Motoko backend and reflected for all visitors. Verify that the addApp and removeApp backend calls complete successfully before updating local state, add error handling with toast notifications on failure, and ensure the app list is re-fetched (query invalidated) after every add or remove operation. Remove any stale local state that might override backend data.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "make sure apps I add and remove save"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Adding an app via the AddApp dialog persists it to the backend and the icon appears on the desktop immediately after the backend confirms success",
+        "Removing an app persists the deletion to the backend and the icon disappears from the desktop immediately after the backend confirms",
+        "If the backend call fails, a neon-styled error toast notification is shown and the UI state is not updated",
+        "The app list is re-fetched from the backend after every successful add or remove (React Query cache invalidated)",
+        "Refreshing the page shows the same apps that were added/removed — no stale state",
+        "All visitors see the same up-to-date app list"
+      ]
+    }
+  ],
+  "constraints": [
+    "Do not modify files under frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, or frontend/src/components/ui",
+    "All Motoko logic must remain in the single backend/main.mo actor",
+    "MP4 video upload must be stored in the Motoko backend as binary blob, not as an external URL",
+    "PIN protection (PIN: 2011) must remain enforced for all wallpaper changes including local file uploads",
+    "Existing settings and their backend persistence must not be broken"
+  ],
+  "nonGoals": [
+    "Adding new cosmetic-only settings not already in the existing settings schema",
+    "Replacing the existing URL-based wallpaper input — it must remain alongside file upload",
+    "Changing the PIN from 2011",
+    "Adding user authentication beyond the existing Internet Identity setup",
+    "Support for video formats other than MP4"
+  ],
+  "imageRequirements": {
+    "required": [],
+    "edits": []
+  }
+}
